@@ -8,9 +8,11 @@ function method1(c,E,I,w)
 	L1=sqrt(d[1]^2+d[2]^2);
 	d=c[3,:]-c[2,:];
 	L2=sqrt(d[1]^2+d[2]^2);
+	d=c[4,:]-c[3,:];
+	L3=sqrt(d[1]^2+d[2]^2);
 
-	P=(L1^3+L2^3)*(3*E*I*w)*.5;
 
+	P=(3*E*I*w)*.5/(L1^3+L2^3+L3^3);
 
 end
 
@@ -27,13 +29,13 @@ coordinates=[0 0
 
 E=69e9; # alum GPa
 b=.05;
-h=.02;
+h=.05;
 I=(b*h^3)/12;
 
 using Plots;
 p=plot(coordinates[:,1],coordinates[:,2],aspect_ratio=1);
 display(p);
-print(method1(coordinates,E,I,.10))
+print(method1(coordinates,E,I,.001))
 
 wait(Condition());
 
