@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>CAD that's actually... good?</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+	<head>
+	<meta charset="UTF-8">
+	<title>CAD that's actually... good?</title>
+ 	<link rel="stylesheet" href="./style.css">
+	<link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
 	  <main>
 		  <h1>GoodCAD</h1>
-
-		  <textarea id="params">
+<canvas id="GL-canvas" style="position:absolute;top:0;left:0;z-index:1"></canvas>
+		  <textarea style="position:absolute;top:0;left:0;z-index:2" id="params">
 [{"name":"length","id":0,"value":100},{"name":"width","id":1,"value":400},{"name":"height","id":2,"value":320}]
 		  </textarea>
-	<input type="button" onClick="parse()" value="Parse"></input>
+	<input type="button" onClick="parse()" style="position:absolute;top:0;left:0;z-index:2" value="Parse"></input>
 
 	</main>
     <script src="index.js"></script>
