@@ -155,7 +155,6 @@ function makeCube(center,dimensions,rotations,rgb) {
 
 function makeCustom(verts,inds) {
 	var L = nVertices;
-	console.log("----",nVertices)
 	nVertices += verts.length / 6;
 	for (var i = 0; i < verts.length; i++) {
 		vertices.push(verts[i]);
