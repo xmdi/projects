@@ -10,13 +10,11 @@ function parse() {
 	for (var obj in data) {
 		console.log(data[obj].name + " at ID#" + data[obj].id + " is " + data[obj].value);
 	}
-
 	information.value=JSON.stringify(JSON.parse(information.value),null,2);
-
 }
 
-
-var vertices = [], indices = [], nVertices = 0, gl;
+var triangle_vertices = [], triangle_indices = [], triangle_nVertices = 0, gl;
+var line_vertices = [], line_indices = [], line_nVertices = 0;
 function perspective(fovy, aspect, near, far) {
 	var out=[]
 	var f = 1.0 / Math.tan(fovy / 2),
@@ -126,9 +124,9 @@ function rotateY(m,a){
 }
 
 function makeCube(center,dimensions,rotations,rgb) {
-	var L = nVertices;
-	nVertices += 8;
-	vertices.push(center[0]-dimensions[0]/2,center[1]-dimensions[1]/2,center[2]-dimensions[2]/2,rgb[0],rgb[1],rgb[2],
+	var L = triangle_nVertices;
+	triangle_nVertices += 8;
+	triangle_vertices.push(center[0]-dimensions[0]/2,center[1]-dimensions[1]/2,center[2]-dimensions[2]/2,rgb[0],rgb[1],rgb[2],
 		center[0]+dimensions[0]/2,center[1]-dimensions[1]/2,center[2]-dimensions[2]/2,rgb[0],rgb[1],rgb[2],
 		center[0]+dimensions[0]/2,center[1]+dimensions[1]/2,center[2]-dimensions[2]/2,rgb[0],rgb[1],rgb[2],
 		center[0]-dimensions[0]/2,center[1]+dimensions[1]/2,center[2]-dimensions[2]/2,rgb[0],rgb[1],rgb[2],
@@ -136,7 +134,7 @@ function makeCube(center,dimensions,rotations,rgb) {
 		center[0]+dimensions[0]/2,center[1]-dimensions[1]/2,center[2]+dimensions[2]/2,rgb[0],rgb[1],rgb[2],
 		center[0]+dimensions[0]/2,center[1]+dimensions[1]/2,center[2]+dimensions[2]/2,rgb[0],rgb[1],rgb[2],
 		center[0]-dimensions[0]/2,center[1]+dimensions[1]/2,center[2]+dimensions[2]/2,rgb[0],rgb[1],rgb[2]);
-	indices.push(L+0, L+2, L+1,
+	triangle_indices.push(L+0, L+2, L+1,
 		L+0, L+3, L+2,
 		L+4, L+5, L+6,
 		L+4, L+6, L+7,
@@ -151,13 +149,13 @@ function makeCube(center,dimensions,rotations,rgb) {
 }
 
 function makeCustom(verts,inds) {
-	var L = nVertices;
-	nVertices += verts.length / 6;
+	var L = triangle_nVertices;
+	triangle_nVertices += verts.length / 6;
 	for (var i = 0; i < verts.length; i++) {
-		vertices.push(verts[i]);
+		triangle_vertices.push(verts[i]);
 	}
 	for (var i = 0; i < inds.length; i++) {
-		indices.push(inds[i]+ L);
+		triangle_indices.push(inds[i]+ L);
 	}
 }
 
@@ -167,11 +165,11 @@ function pureGL(canvas) {
 
 	var vertex_buffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangle_vertices), gl.STATIC_DRAW);
 
 	var index_buffer = gl.createBuffer();
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(triangle_indices), gl.STATIC_DRAW);
 
 	var vertexShaderSource = `
 	precision mediump float;
@@ -282,13 +280,13 @@ function pureGL(canvas) {
 }
 
 function loop() {
-
 	var mo_matrix=[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
 	rotateY(mo_matrix,a1);
 	rotateX(mo_matrix,-a2);
 	gl.uniformMatrix4fv(matWorldUniformLocation,gl.FALSE,mo_matrix);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+	gl.drawElements(gl.TRIANGLES, triangle_indices.length, gl.UNSIGNED_SHORT, 0);
+	gl.drawElements(gl.LINES, line_indices.length, gl.UNSIGNED_SHORT, 0);
 	requestAnimationFrame(loop);
 }
 
