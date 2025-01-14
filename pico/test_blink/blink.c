@@ -7,7 +7,7 @@
 
 int main() {
 
-	int gpio_in=0;
+	int gpio_in=1;
 
 	gpio_init(LED_PIN);
 	gpio_init(READ_PIN);
@@ -21,7 +21,7 @@ int main() {
 	}*/
 
 	while(1){
-		gpio_in=gpio_get(READ_PIN);
+		//gpio_in=gpio_get(READ_PIN);
 		if (gpio_in==0){
 			gpio_put(LED_PIN,GPIO_ON);
 		}
