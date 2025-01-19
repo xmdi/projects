@@ -13,12 +13,12 @@ int main() {
 	gpio_init(READ_PIN);
 	gpio_set_dir(LED_PIN,GPIO_OUT);
 	gpio_set_dir(READ_PIN,GPIO_IN);
-/*	while(1){
+	while(1){
 		gpio_put(LED_PIN,GPIO_ON);
-		sleep_ms(500);
+		sleep_ms(100);
 		gpio_put(LED_PIN,GPIO_OFF);
 		sleep_ms(100);
-	}*/
+	}
 
 	while(1){
 		//gpio_in=gpio_get(READ_PIN);
