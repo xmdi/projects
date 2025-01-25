@@ -2,7 +2,11 @@
 
 #define INPUT_PIN 15
 
-void logic(void);
+int _gpio_get(int);
+
+int my_gpio_get(int a){
+	return gpio_get(a);
+}
 
 int main(){
     stdio_init_all();
@@ -12,7 +16,6 @@ int main(){
     gpio_set_dir(INPUT_PIN,GPIO_IN);
     gpio_pull_up(INPUT_PIN);
     while (true){
-	gpio_put(PICO_DEFAULT_LED_PIN,gpio_get(INPUT_PIN));
-	logic();
+	gpio_put(PICO_DEFAULT_LED_PIN,!_gpio_get(INPUT_PIN));
     }
 }
