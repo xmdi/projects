@@ -4,3 +4,4 @@
 _gpio_get:
 	mov r0,#15
 	bl my_gpio_get
+	bx lr
