@@ -1,7 +1,7 @@
 .global my_gpio_get
-.global _gpio_get
+.global something
 
-_gpio_get:
-	mov r0,#15
-	bl my_gpio_get
+something:
+#	mov r0,#15
+#	bl my_gpio_get
 	bx lr
