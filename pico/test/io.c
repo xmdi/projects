@@ -11,27 +11,6 @@ void Xgpio_put(int a, int b){
 
 void binary_out(int);
 
-/*void binary_out(int x){
-
-	if (x&1)
-		gpio_put(PIN0,true);
-	else
-		gpio_put(PIN0,false);
-	if (x&2)
-		gpio_put(PIN1,true);	
-	else
-		gpio_put(PIN1,false);
-	if (x&4)
-		gpio_put(PIN2,true);	
-	else
-		gpio_put(PIN2,false);
-	if (x&8)
-		gpio_put(PIN3,true);
-	else
-		gpio_put(PIN3,false);
-}
-*/
-
 int main(){
 	gpio_init(PICO_DEFAULT_LED_PIN);
 	gpio_init(PIN0);
