@@ -9,8 +9,8 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(io
-    io.c
-    io.s
+    blink-counter-asm.c
+    blink-counter-asm.s
     )
 
 pico_add_extra_outputs(io)
